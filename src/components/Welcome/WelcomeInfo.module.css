@@ -1,0 +1,44 @@
+.welcome-info {
+  max-width: 550px;
+  margin-top: 2rem;
+  width: 80%;
+  text-align: center;
+  color: antiquewhite;
+}
+
+h2 {
+  margin-bottom: 1rem;
+}
+
+.welcome-info p {
+  margin-bottom: 1.4rem;
+}
+
+.welcome-info button {
+  background-color: #1a8ed1;
+  color: white;
+  width: 40%;
+  font-weight: bold;
+  padding: 0.8rem 2.4rem;
+}
+
+@media only screen and (min-width: 1024px) {
+  .welcome-info {
+    width: 40%;
+  }
+
+  .welcome-info h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .welcome-info p {
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+  }
+
+  .welcome-info button {
+    font-size: 1.2rem;
+    width: 80%;
+  }
+}

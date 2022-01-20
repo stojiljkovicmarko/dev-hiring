@@ -1,0 +1,44 @@
+header {
+  width: 100%;
+  min-height: 5rem;
+  padding: 0 10%;
+  background-color: #252424;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  margin: 1rem 0;
+  color: whitesmoke;
+}
+
+header ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.button {
+  background-color: transparent;
+  border-color: #1a8ed1;
+  color: #1a8ed1;
+  min-width: 60%;
+}
+
+@media only screen and (max-width: 768px) {
+  header {
+    flex-direction: column;
+    padding-bottom: 1rem;
+  }
+
+  header ul {
+    flex-direction: column;
+  }
+
+  button {
+    width: 200px;
+  }
+}

@@ -1,0 +1,64 @@
+.welcome-dev-container {
+  max-width: 540px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  text-overflow: clip;
+  gap: 10px;
+  
+}
+
+.welcome-dev-card {
+  width: 120px;
+  font-size: 0.8rem;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 3px 3px 3px rgb(145, 145, 145);
+}
+
+.welcome-dev-card img {
+  width: 100%;
+  border-radius: 4px 4px 0 0;
+}
+
+.welcome-dev-card a {
+  color: #1a8ed1;
+}
+
+.welcome-dev-card .dev-info {
+  padding: 6% 10%;
+}
+
+.dev-info p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dev-info .name {
+  font-size: 0.8rem;
+  margin-bottom: 0.4rem;
+}
+
+.dev-info .tech {
+  font-size: 0.7rem;
+  color: grey;
+}
+
+@media only screen and (max-width: 550px) {
+  .welcome-dev-container {
+    justify-content: start;
+  }
+
+  .welcome-dev-card {
+    width: 150px;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+    .welcome-dev-container {
+      justify-content: center;
+    }
+  }
