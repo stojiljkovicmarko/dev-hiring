@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { developerActions } from "../../store/dev-slice";
-import classes from "./DevelopersList.module.css";
 
 const DevelopersList = () => {
   const developers = useSelector((state) => state.developer.developers);

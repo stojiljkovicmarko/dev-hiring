@@ -1,11 +1,9 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
-// import Developer from "../../model/Developer";
 import useInput from "../../hooks/useInput";
 import { developerActions } from "../../store/dev-slice";
-import { uiActions } from "../../store/ui-slice";
 
 import classes from "./DeveloperForm.module.css";
 
@@ -14,11 +12,7 @@ const DeveloperForm = (props) => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  console.log(location);
-
-  const id = location.pathname.split("/")[2];
-
-  let developer;
+  const id = parseInt(location.pathname.split("/")[2]);
 
   const {
     value: nameValue,
@@ -120,24 +114,31 @@ const DeveloperForm = (props) => {
     fillForm: fillLinkedin,
   } = useInput((value) => true);
 
+  const fillAllFields = useCallback((dev) => {
+    fillName(dev.name);
+    fillEmail(dev.email);
+    fillPhone(dev.phone);
+    fillLocation(dev.location);
+    fillImg(dev.img);
+    fillPrice(dev.pricePerHour);
+    fillTechnology(dev.technology);
+    fillDescription(dev.description);
+    fillYearsOfExp(dev.yearsOfExp);
+    fillLanguage(dev.nativeLanguage);
+    fillLinkedin(dev.linkedin);
+  }, []);
+
   useEffect(() => {
     if (id) {
-      console.log(id);
-      const dev = devs.filter((dev) => dev.id === parseInt(id))[0];
-      console.log(dev);
-      fillName(dev.name);
-      fillEmail(dev.email);
-      fillPhone(dev.phone);
-      fillLocation(dev.location);
-      fillImg(dev.img);
-      fillPrice(dev.pricePerHour);
-      fillTechnology(dev.technology);
-      fillDescription(dev.description);
-      fillYearsOfExp(dev.yearsOfExp);
-      fillLanguage(dev.nativeLanguage);
-      fillLinkedin(dev.linkedin);
+      const idExists = devs.find((dev) => dev.id === id);
+      console.log(idExists);
+      if (idExists) {
+        const dev = devs.filter((dev) => dev.id === parseInt(id))[0];
+        fillAllFields(dev);
+      }
+      //dispatch message that id doesnt exist
     }
-  }, []);
+  }, [id, devs, fillAllFields]);
 
   let formIsValid = false;
 
@@ -192,8 +193,8 @@ const DeveloperForm = (props) => {
       return;
     }
 
-    developer = {
-      id: id || Math.floor(Math.random() * 1000000),
+    let developer = {
+      id: null,
       name: nameValue,
       email: emailValue,
       phone: phoneValue,
@@ -207,19 +208,13 @@ const DeveloperForm = (props) => {
       linkedin: linkedinValue,
     };
 
-    console.log(devs);
-
-    dispatch(developerActions.addDeveloper(developer));
-    // dispatch(
-    //   uiActions.showNotification({
-    //     status: "success",
-    //     title: "Success!",
-    //     message: "Developer added to the list.",
-    //   })
-    // );
-    // setTimeout(() => {
-    //   dispatch(uiActions.closeNotification());
-    // }, 2000);
+    if (id) {
+      developer.id = id;
+      dispatch(developerActions.editDeveloper(developer));
+    } else {
+      developer.id = Math.floor(Math.random() * 1000000);
+      dispatch(developerActions.addDeveloper(developer));
+    }
     resetForm();
   };
 
@@ -227,11 +222,13 @@ const DeveloperForm = (props) => {
     return !inputFieldHasError ? "" : classes.invalid;
   };
 
+  const isCreatePage = location.pathname === "/new-developer";
+
   return (
     <div className={classes["form-container"]}>
       <div className={classes.heading}>
         <p>
-          {location.pathname === "/new-developer"
+          {isCreatePage
             ? "Create developer"
             : "Edit developer"}
         </p>
@@ -352,10 +349,10 @@ const DeveloperForm = (props) => {
         </div>
         <div className={classes["form-actions"]}>
           <button type="reset" onClick={resetForm}>
-            Reset
+            Reset fields
           </button>
           <button type="submit" disabled={!formIsValid}>
-            Create
+            {isCreatePage ? "Create" : "Edit"}
           </button>
         </div>
       </form>

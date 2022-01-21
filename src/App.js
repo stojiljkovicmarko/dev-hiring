@@ -1,18 +1,42 @@
+import { Fragment, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
+import Layout from "./ui/Layout";
 import Welcome from "./pages/Welcome";
 import HireDeveloper from "./pages/HireDeveloper";
-import Layout from "./ui/Layout";
 import CreateDeveloper from "./pages/CreateDeveloper";
 import EditDeveloper from "./pages/EditDeveloper";
+import Notification from "./ui/Notification";
+
+import { fetchDeveloperData, sendDeveloperData } from "./store/dev-thunk";
 
 import "./App.css";
-import { Fragment } from "react";
-import Notification from "./ui/Notification";
-import { useSelector } from "react-redux";
+
+let isInit = true;
 
 function App() {
+  const developer = useSelector((state) => state.developer);
   const notification = useSelector((state) => state.ui.notification);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchDeveloperData());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (isInit) {
+      isInit = false;
+      return;
+    }
+
+    if (developer.changedDevList) {
+      console.log("we dispatched data");
+      dispatch(sendDeveloperData(developer.developers));
+    }
+  }, [dispatch, developer]);
+
+  console.log("from app", developer.developers);
 
   return (
     <Fragment>
