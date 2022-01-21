@@ -1,5 +1,6 @@
 class Developer {
   constructor(
+    id = "",
     name = "",
     email = "",
     phone = "",
@@ -12,6 +13,7 @@ class Developer {
     nativeLang = "",
     linkedIn = ""
   ) {
+    this.id = id;
     this.name = name;
     this.email = email;
     this.phone = phone;

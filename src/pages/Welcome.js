@@ -1,14 +1,14 @@
-// import WelcomeTopDevs from "../components/Welcome/WelcomeTopDevs";
-// import WelcomeInfo from "../components/Welcome/WelcomeInfo";
+import WelcomeInfo from "../components/Welcome/WelcomeInfo";
+import WelcomeTopDevs from "../components/Welcome/WelcomeTopDevs";
 
-import classes from "./Welcome.module.css";
-import DeveloperForm from "../components/Developer/DeveloperForm";
+import Section from "../ui/Section";
 
 const Welcome = () => {
   return (
-    <section className={classes.section}>
-      <DeveloperForm />
-    </section>
+    <Section>
+      <WelcomeInfo />
+      <WelcomeTopDevs />
+    </Section>
   );
 };
 
