@@ -14,14 +14,14 @@ button {
   cursor: pointer;
   padding: 0.5rem 1.5rem;
   border-radius: 6px;
-  background-color: transparent;
-  color: #1a8ed1;
+  background-color: #1a8ed1;
+  color: white;
   border: 1px solid #1a8ed1;
 }
 
 button:hover,
 button:active {
-  background-color: #1ac5d1;
-  border-color: #1ac5d1;
+  background-color: #126596;
+  border-color: #126596;
   color: white;
 }

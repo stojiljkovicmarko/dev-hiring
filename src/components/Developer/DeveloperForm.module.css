@@ -1,0 +1,119 @@
+.form-container {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.heading {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: whitesmoke;
+}
+
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+form div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+form input,
+form textarea,
+form select {
+  max-width: 100%;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem;
+}
+
+form textarea {
+  min-width: 100%;
+}
+
+.image-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: white;
+  border-radius: 5px;
+  padding: 0.4rem;
+}
+
+.image-container label {
+  font-size: 0.8rem;
+  width: 50%;
+}
+
+.image-container input {
+  padding: 0;
+}
+
+.form-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.form-actions button {
+  max-width: 200px;
+  min-width: 100px;
+  width: 25%;
+}
+
+button:disabled,
+button:disabled:hover,
+button:active {
+  background-color: #ccc;
+  color: #424242;
+  border-color: #ccc;
+  cursor: not-allowed;
+}
+
+.invalid {
+  border: 2px solid #ff6262;
+  background-color: #ffbfbf;
+}
+
+.invalid:focus {
+  border-color: #ff9d2d;
+  background-color: #ffe1bf;
+}
+
+@media only screen and (min-width: 768px) {
+  form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  form div {
+    width: 48%;
+  }
+
+  form textarea {
+    height: 74px;
+    max-height: 94px;
+    min-height: 74px;
+  }
+
+  .form-actions {
+    width: 97%;
+  }
+}
