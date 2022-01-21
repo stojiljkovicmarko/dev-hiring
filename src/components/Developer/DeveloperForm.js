@@ -1,12 +1,24 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+
+// import Developer from "../../model/Developer";
 import useInput from "../../hooks/useInput";
+import { developerActions } from "../../store/dev-slice";
+import { uiActions } from "../../store/ui-slice";
+
 import classes from "./DeveloperForm.module.css";
-import Developer from "../../model/Developer";
 
 const DeveloperForm = (props) => {
-  let emailRegex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
-
+  const devs = useSelector((state) => state.developer.developers);
+  const dispatch = useDispatch();
   const location = useLocation();
+
+  console.log(location);
+
+  const id = location.pathname.split("/")[2];
+
+  let developer;
 
   const {
     value: nameValue,
@@ -14,14 +26,17 @@ const DeveloperForm = (props) => {
     valueChangeHandler: nameChangeHandler,
     valueInputBlurHandler: nameInputBlurHandler,
     reset: resetName,
+    fillForm: fillName,
   } = useInput((value) => value.trim() !== "");
 
+  let emailRegex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
   const {
     value: emailValue,
     hasError: emailInputHasError,
     valueChangeHandler: emailChangeHandler,
     valueInputBlurHandler: emailInputBlurHandler,
     reset: resetEmail,
+    fillForm: fillEmail,
   } = useInput((value) => emailRegex.test(value));
 
   const {
@@ -30,6 +45,7 @@ const DeveloperForm = (props) => {
     valueChangeHandler: phoneChangeHandler,
     valueInputBlurHandler: phoneInputBlurHandler,
     reset: resetPhone,
+    fillForm: fillPhone,
   } = useInput((value) => value.trim() !== "");
 
   const {
@@ -38,6 +54,7 @@ const DeveloperForm = (props) => {
     valueChangeHandler: locationChangeHandler,
     valueInputBlurHandler: locationInputBlurHandler,
     reset: resetLocation,
+    fillForm: fillLocation,
   } = useInput((value) => value.trim() !== "");
 
   const {
@@ -46,6 +63,7 @@ const DeveloperForm = (props) => {
     valueChangeHandler: priceChangeHandler,
     valueInputBlurHandler: priceInputBlurHandler,
     reset: resetPrice,
+    fillForm: fillPrice,
   } = useInput((value) => value.trim() !== "");
 
   const {
@@ -54,6 +72,7 @@ const DeveloperForm = (props) => {
     valueChangeHandler: technologyChangeHandler,
     valueInputBlurHandler: technologyInputBlurHandler,
     reset: resetTechnology,
+    fillForm: fillTechnology,
   } = useInput((value) => value.trim() !== "");
 
   const {
@@ -62,6 +81,7 @@ const DeveloperForm = (props) => {
     valueChangeHandler: yearsOfExpChangeHandler,
     valueInputBlurHandler: yearsOfExpInputBlurHandler,
     reset: resetYearsOfExp,
+    fillForm: fillYearsOfExp,
   } = useInput((value) => value.trim() !== "");
 
   const {
@@ -70,6 +90,7 @@ const DeveloperForm = (props) => {
     valueChangeHandler: languageChangeHandler,
     valueInputBlurHandler: languageInputBlurHandler,
     reset: resetLanguage,
+    fillForm: fillLanguage,
   } = useInput((value) => value.trim() !== "");
 
   const {
@@ -78,6 +99,7 @@ const DeveloperForm = (props) => {
     valueChangeHandler: imgChangeHandler,
     valueInputBlurHandler: imgInputBlurHandler,
     reset: resetImg,
+    fillForm: fillImg,
   } = useInput((value) => true);
 
   const {
@@ -86,6 +108,7 @@ const DeveloperForm = (props) => {
     valueChangeHandler: descriptionChangeHandler,
     valueInputBlurHandler: descriptionInputBlurHandler,
     reset: resetDescription,
+    fillForm: fillDescription,
   } = useInput((value) => true);
 
   const {
@@ -94,7 +117,27 @@ const DeveloperForm = (props) => {
     valueChangeHandler: linkedinChangeHandler,
     valueInputBlurHandler: linkedinInputBlurHandler,
     reset: resetLinkedin,
+    fillForm: fillLinkedin,
   } = useInput((value) => true);
+
+  useEffect(() => {
+    if (id) {
+      console.log(id);
+      const dev = devs.filter((dev) => dev.id === parseInt(id))[0];
+      console.log(dev);
+      fillName(dev.name);
+      fillEmail(dev.email);
+      fillPhone(dev.phone);
+      fillLocation(dev.location);
+      fillImg(dev.img);
+      fillPrice(dev.pricePerHour);
+      fillTechnology(dev.technology);
+      fillDescription(dev.description);
+      fillYearsOfExp(dev.yearsOfExp);
+      fillLanguage(dev.nativeLanguage);
+      fillLinkedin(dev.linkedin);
+    }
+  }, []);
 
   let formIsValid = false;
 
@@ -149,25 +192,35 @@ const DeveloperForm = (props) => {
       return;
     }
 
-    const developer = new Developer(
-      Math.floor(Math.random() * 1000000),
-      nameValue,
-      emailValue,
-      phoneValue,
-      locationValue,
-      imgValue,
-      priceValue,
-      technologyValue,
-      descriptionValue,
-      yearsOfExpValue,
-      languageValue,
-      linkedinValue
-    );
+    developer = {
+      id: id || Math.floor(Math.random() * 1000000),
+      name: nameValue,
+      email: emailValue,
+      phone: phoneValue,
+      location: locationValue,
+      img: imgValue,
+      pricePerHour: priceValue,
+      technology: technologyValue,
+      description: descriptionValue,
+      yearsOfExp: yearsOfExpValue,
+      nativeLanguage: languageValue,
+      linkedin: linkedinValue,
+    };
 
-    console.log(developer);
+    console.log(devs);
 
+    dispatch(developerActions.addDeveloper(developer));
+    // dispatch(
+    //   uiActions.showNotification({
+    //     status: "success",
+    //     title: "Success!",
+    //     message: "Developer added to the list.",
+    //   })
+    // );
+    // setTimeout(() => {
+    //   dispatch(uiActions.closeNotification());
+    // }, 2000);
     resetForm();
-    //ovde cemo dispatch za notifikaciju
   };
 
   const inputClasses = (inputFieldHasError) => {
@@ -233,9 +286,7 @@ const DeveloperForm = (props) => {
             onBlur={technologyInputBlurHandler}
             name="technology"
           >
-            <option defaultValue="" selected>
-              Technology*
-            </option>
+            <option defaultValue="">Technology*</option>
             <option value="JavaScript">JavaScript</option>
             <option value="Java">Java</option>
             <option value=".Net">.Net</option>
@@ -268,9 +319,7 @@ const DeveloperForm = (props) => {
             onChange={languageChangeHandler}
             onBlur={languageInputBlurHandler}
           >
-            <option defaultValue="" selected>
-              Language*
-            </option>
+            <option defaultValue="">Language*</option>
             <option value="Serbian">Serbian</option>
             <option value="English">English</option>
             <option value="Bulgarian">Bulgarian</option>

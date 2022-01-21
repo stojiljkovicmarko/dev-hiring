@@ -13,6 +13,8 @@ const inputStateReducer = (state, action) => {
       return { value: state.value, isTouched: true };
     case "RESET":
       return { value: "", isTouched: false };
+    case "FILL_FORM":
+      return { value: action.payload, isTouched: false };
     default:
       return initialInputState;
   }
@@ -36,6 +38,10 @@ function useInput(validateInputValue) {
     dispatch({ type: "RESET" });
   };
 
+  const fillForm = (data) => {
+    dispatch({type: "FILL_FORM", payload: data});
+  }
+
   //we return function to change states of value and touched
   //and we return if we want to show error nad value
   return {
@@ -44,6 +50,7 @@ function useInput(validateInputValue) {
     valueChangeHandler,
     valueInputBlurHandler,
     reset,
+    fillForm,
   };
 }
 

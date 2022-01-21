@@ -12,8 +12,8 @@ const uiSlice = createSlice({
       };
     },
     closeNotification(state) {
-        state.notification = null;
-    }
+      state.notification = null;
+    },
   },
 });
 

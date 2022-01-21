@@ -1,10 +1,12 @@
-const HireDeveloper = () => {
+import DevelopersList from "../components/Developer/DevelopersList";
+import Section from "../ui/Section";
 
-    return(
-        <div>
-            <p>Here we will list all of our developers as cards!</p>
-        </div>
-    );
-}
+const HireDeveloper = () => {
+  return (
+    <Section>
+      <DevelopersList />
+    </Section>
+  );
+};
 
 export default HireDeveloper;
