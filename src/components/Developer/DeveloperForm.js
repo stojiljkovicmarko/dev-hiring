@@ -1,4 +1,3 @@
-import { type } from "@testing-library/user-event/dist/type";
 import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
