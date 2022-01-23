@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -18,13 +18,20 @@ let isInit = true;
 
 function App() {
   const developer = useSelector((state) => state.developer);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const hired = useSelector((state) => state.hired);
   const notification = useSelector((state) => state.ui.notification);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchDeveloperData());
-    dispatch(fetchHiredData());
+    try {
+      dispatch(fetchDeveloperData());
+      dispatch(fetchHiredData());
+      setIsLoading(false);
+    } catch (error) {
+      setError({ message: error.message });
+    }
   }, [dispatch]);
 
   useEffect(() => {
@@ -42,9 +49,6 @@ function App() {
     }
   }, [dispatch, developer, hired]);
 
-  console.log(developer);
-  console.log(hired);
-
   return (
     <Fragment>
       {notification && (
@@ -57,7 +61,10 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/welcome" element={<Welcome />} />
-          <Route path="/hire-developer" element={<HireDeveloper />} />
+          <Route
+            path="/hire-developer"
+            element={<HireDeveloper isLoading={isLoading} error={error} />}
+          />
           <Route path="new-developer" element={<CreateDeveloper />} />
           <Route path="edit-developer/:id" element={<EditDeveloper />} />
           <Route path="/" element={<Welcome />} />

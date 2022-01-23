@@ -4,10 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { developerActions } from "../../store/dev-slice";
 import Card from "../../ui/Card";
 import DateModal from "../DatePickerModal/DateModal";
+import Error from "../Error/Error";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 import classes from "./DevelopersList.module.css";
 
-const DevelopersList = () => {
+const DevelopersList = (props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [devId, setDevId] = useState(null);
   const developers = useSelector((state) => state.developer.developers);
@@ -28,8 +30,18 @@ const DevelopersList = () => {
     setIsModalVisible(!isModalVisible);
   };
 
-  if (developers.length === 0) {
-    return <h1>No developers to hire!</h1>;
+  console.log("loading... ", props.isLoading);
+
+  if (props.isLoading) {
+    return <LoadingSpinner />;
+  }
+
+  if (!props.isLoading && props.error) {
+    return (
+      <Error
+        error={{ message: "Error loading developers. Please try again later." }}
+      />
+    );
   }
 
   return (

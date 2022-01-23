@@ -5,12 +5,12 @@
 }
 
 .spinner > div {
-  width: 18px;
-  height: 18px;
-  margin: 0 0.4rem;
-  background-color: #d3dedc;
+  width: 35px;
+  height: 35px;
+  margin: 0 0.6rem;
+  background-color: #1a8ed1;
 
-  border: 2px solid black;
+  border: 3px solid white;
   border-radius: 100%;
   display: inline-block;
   -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
