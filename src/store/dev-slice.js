@@ -28,6 +28,7 @@ const developerSlice = createSlice({
     },
     replaceDeveloperList(state, action) {
       state.developers = action.payload;
+      state.changedDevList = true;
     },
   },
 });

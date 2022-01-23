@@ -1,3 +1,4 @@
+import { type } from "@testing-library/user-event/dist/type";
 import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
@@ -12,7 +13,7 @@ const DeveloperForm = (props) => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const id = parseInt(location.pathname.split("/")[2]);
+  const id = location.pathname.split("/")[2];
 
   const {
     value: nameValue,
@@ -114,29 +115,32 @@ const DeveloperForm = (props) => {
     fillForm: fillLinkedin,
   } = useInput((value) => true);
 
-  const fillAllFields = useCallback((dev) => {
-    fillName(dev.name);
-    fillEmail(dev.email);
-    fillPhone(dev.phone);
-    fillLocation(dev.location);
-    fillImg(dev.img);
-    fillPrice(dev.pricePerHour);
-    fillTechnology(dev.technology);
-    fillDescription(dev.description);
-    fillYearsOfExp(dev.yearsOfExp);
-    fillLanguage(dev.nativeLanguage);
-    fillLinkedin(dev.linkedin);
-  }, []);
+  const fillAllFields = useCallback(
+    (dev) => {
+      fillName(dev.name);
+      fillEmail(dev.email);
+      fillPhone(dev.phone);
+      fillLocation(dev.location);
+      fillImg(dev.img);
+      fillPrice(dev.pricePerHour);
+      fillTechnology(dev.technology);
+      fillDescription(dev.description);
+      fillYearsOfExp(dev.yearsOfExp);
+      fillLanguage(dev.nativeLanguage);
+      fillLinkedin(dev.linkedin);
+    }, []
+  );
 
   useEffect(() => {
     if (id) {
-      const idExists = devs.find((dev) => dev.id === id);
-      console.log(idExists);
+      const idExists = devs.find((dev) => {
+        return dev.id === id;
+      });
+      console.log("devs: ", devs);
       if (idExists) {
-        const dev = devs.filter((dev) => dev.id === parseInt(id))[0];
+        const dev = devs.filter((dev) => dev.id === id)[0];
         fillAllFields(dev);
       }
-      //dispatch message that id doesnt exist
     }
   }, [id, devs, fillAllFields]);
 

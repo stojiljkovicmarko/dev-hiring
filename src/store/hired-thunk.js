@@ -18,12 +18,10 @@ export const fetchHiredData = () => {
 
     try {
       let hiredData = await fetchData();
-      console.log("fetched data", hiredData);
       if (!hiredData) {
         hiredData = [];
       }
       dispatch(hiredActions.replaceHiredData(hiredData));
-      console.log("fetched data after  replacing");
     } catch (error) {
       dispatch(
         uiActions.showNotification({
@@ -61,10 +59,8 @@ export const sendHiredData = (hiredData) => {
       );
 
       if (!response.ok) {
-        console.log("response not ok when send");
         throw new Error();
       }
-      console.log("response ok when send");
       dispatch(
         uiActions.showNotification({
           status: "success",

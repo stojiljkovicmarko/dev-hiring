@@ -49,6 +49,8 @@ function App() {
     }
   }, [dispatch, developer, hired]);
 
+  console.log("lsita devs: ",developer);
+
   return (
     <Fragment>
       {notification && (

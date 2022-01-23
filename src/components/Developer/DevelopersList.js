@@ -30,8 +30,6 @@ const DevelopersList = (props) => {
     setIsModalVisible(!isModalVisible);
   };
 
-  console.log("loading... ", props.isLoading);
-
   if (props.isLoading) {
     return <LoadingSpinner />;
   }
