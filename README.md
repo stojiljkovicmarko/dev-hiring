@@ -1,8 +1,8 @@
 To set up project:
 
-git clone https://github.com/stojiljkovicmarko/dev-hiring
-npm install 
-npm start
+- git clone https://github.com/stojiljkovicmarko/dev-hiring
+- npm install 
+- npm start
 
 # Application for hiring developers
 
