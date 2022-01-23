@@ -1,8 +1,15 @@
+import { Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { developerActions } from "../../store/dev-slice";
+import Card from "../../ui/Card";
+import DateModal from "../DatePickerModal/DateModal";
+
+import classes from "./DevelopersList.module.css";
 
 const DevelopersList = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [devId, setDevId] = useState(null);
   const developers = useSelector((state) => state.developer.developers);
   const dispatch = useDispatch();
 
@@ -16,37 +23,36 @@ const DevelopersList = () => {
     dispatch(developerActions.removeDeveloper(id));
   };
 
+  const onShowDatePicker = (id) => {
+    setDevId(id);
+    setIsModalVisible(!isModalVisible);
+  };
+
   if (developers.length === 0) {
     return <h1>No developers to hire!</h1>;
   }
 
   return (
-    <div>
-      {developers.map((dev) => {
-        return (
-          <li key={dev.id}>
-            <div>
-              <h2>{dev.name} </h2>
-              <p>{dev.email}</p>
-              <button
-                onClick={() => {
-                  return editDevHandler(dev.id);
-                }}
-              >
-                Edit
-              </button>
-              <button
-                onClick={() => {
-                  return deleteDevHandler(dev.id);
-                }}
-              >
-                Delete
-              </button>
-            </div>
-          </li>
-        );
-      })}
-    </div>
+    <Fragment>
+      {isModalVisible && (
+        <DateModal id={devId} showDatePicker={onShowDatePicker} />
+      )}
+      <div className={classes["list-container"]}>
+        <ul>
+          {developers.map((dev) => {
+            return (
+              <Card
+                key={dev.id}
+                editDeveloper={editDevHandler}
+                deleteDeveloper={deleteDevHandler}
+                showDatePicker={onShowDatePicker}
+                dev={dev}
+              />
+            );
+          })}
+        </ul>
+      </div>
+    </Fragment>
   );
 };
 

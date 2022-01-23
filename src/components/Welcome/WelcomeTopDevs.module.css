@@ -1,9 +1,9 @@
 .welcome-dev-container {
-  max-width: 540px;
+  max-width: 570px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   text-overflow: clip;
   gap: 10px;
@@ -11,7 +11,7 @@
 }
 
 .welcome-dev-card {
-  width: 120px;
+  width: 130px;
   font-size: 0.8rem;
   background-color: white;
   border-radius: 4px;
@@ -47,18 +47,35 @@
   color: grey;
 }
 
-@media only screen and (max-width: 550px) {
+@media only screen and (max-width: 600px) {
   .welcome-dev-container {
+    width: 440px;
+    max-width: 90%;
+    height: 170px;
+    flex-direction: row;
+    flex-wrap: nowrap;
     justify-content: start;
+    align-items: center;
+    overflow-x: auto;
+    padding: 0 0.3rem;
+  }
+
+  .welcome-dev-container::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .welcome-dev-container::-webkit-scrollbar-track {
+    border: 1px solid rgba(128, 128, 128, 0.329);
+    border-radius: 25px;
+    background-color: transparent;
+  }
+
+  .welcome-dev-container::-webkit-scrollbar-thumb {
+    background-color: #1a8ed1;
+    border-radius: 25px;
   }
 
   .welcome-dev-card {
-    width: 150px;
+    width: 100px;
   }
 }
-
-@media only screen and (max-width: 550px) {
-    .welcome-dev-container {
-      justify-content: center;
-    }
-  }

@@ -212,7 +212,7 @@ const DeveloperForm = (props) => {
       developer.id = id;
       dispatch(developerActions.editDeveloper(developer));
     } else {
-      developer.id = Math.floor(Math.random() * 1000000);
+      developer.id = "" + Math.floor(Math.random() * 1000000);
       dispatch(developerActions.addDeveloper(developer));
     }
     resetForm();
@@ -227,11 +227,7 @@ const DeveloperForm = (props) => {
   return (
     <div className={classes["form-container"]}>
       <div className={classes.heading}>
-        <p>
-          {isCreatePage
-            ? "Create developer"
-            : "Edit developer"}
-        </p>
+        <p>{isCreatePage ? "Create developer" : "Edit developer"}</p>
       </div>
       <form onSubmit={formSubmitHandler}>
         <div>
@@ -327,29 +323,21 @@ const DeveloperForm = (props) => {
             value={linkedinValue}
             onChange={linkedinChangeHandler}
             onBlur={linkedinInputBlurHandler}
-            placeholder="LinkedIn profile url"
+            placeholder="LinkedIn (https://www.linkedin.com/in/username/)"
           />
-
-          <div
-            className={`${classes["image-container"]} ${inputClasses(
-              imgInputHasError
-            )}`}
-          >
-            <label htmlFor="img">Select profile image: </label>
-            <input
-              type="file"
-              value={imgValue}
-              onChange={imgChangeHandler}
-              onBlur={imgInputBlurHandler}
-              name="img"
-              placeholder="Name"
-              accept="image/png, image/jpg"
-            />
-          </div>
+          <input
+            type="text"
+            className={inputClasses(imgInputHasError)}
+            value={imgValue}
+            onChange={imgChangeHandler}
+            onBlur={imgInputBlurHandler}
+            name="img"
+            placeholder="Avatar url"
+          />
         </div>
         <div className={classes["form-actions"]}>
           <button type="reset" onClick={resetForm}>
-            Reset fields
+            Reset
           </button>
           <button type="submit" disabled={!formIsValid}>
             {isCreatePage ? "Create" : "Edit"}

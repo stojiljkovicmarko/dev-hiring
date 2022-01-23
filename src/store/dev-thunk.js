@@ -1,6 +1,5 @@
 import { developerActions } from "./dev-slice";
 import { uiActions } from "./ui-slice";
-//import { uiActions } from "./ui-slice";
 
 export const fetchDeveloperData = () => {
   return async (dispatch) => {
@@ -14,13 +13,11 @@ export const fetchDeveloperData = () => {
       }
 
       const data = await response.json();
-      console.log(data);
       return data;
     };
 
     try {
       let devData = await fetchData();
-      console.log(devData);
       if (!devData) {
         devData = [];
       }
@@ -28,11 +25,14 @@ export const fetchDeveloperData = () => {
     } catch (error) {
       dispatch(
         uiActions.showNotification({
-          status: "success",
-          title: "Success!",
-          message: "Successfully created new developer.",
+          status: "error",
+          title: "Error!",
+          message: "Something went wrong!",
         })
       );
+      setTimeout(() => {
+        dispatch(uiActions.closeNotification());
+      }, 4000);
     }
   };
 };
@@ -40,12 +40,12 @@ export const fetchDeveloperData = () => {
 export const sendDeveloperData = (devData) => {
   return (dispatch) => {
     dispatch(
-        uiActions.showNotification({
-          status: "pending",
-          title: "Loading...",
-          message: "We are collecting data...",
-        })
-      );
+      uiActions.showNotification({
+        status: "pending",
+        title: "Loading...",
+        message: "We are collecting data...",
+      })
+    );
     const sendData = async () => {
       const response = await fetch(
         "https://dev-hiring-app-default-rtdb.europe-west1.firebasedatabase.app/developers.json",
@@ -61,15 +61,16 @@ export const sendDeveloperData = (devData) => {
       if (!response.ok) {
         throw new Error();
       }
-
-      console.log("success sending data");
       dispatch(
         uiActions.showNotification({
           status: "success",
           title: "Success!",
-          message: "Successfully created new developer.",
+          message: "Successfully saved developer data.",
         })
       );
+      setTimeout(() => {
+        dispatch(uiActions.closeNotification());
+      }, 4000);
     };
 
     sendData().catch((error) => {
@@ -77,9 +78,12 @@ export const sendDeveloperData = (devData) => {
         uiActions.showNotification({
           status: "error",
           title: "Error!",
-          message: "Developer not created. Network problems.",
+          message: "Developers data not saved. Try again.",
         })
       );
+      setTimeout(() => {
+        dispatch(uiActions.closeNotification());
+      }, 4000);
     });
   };
 };

@@ -1,0 +1,20 @@
+.list-container {
+  width: 100%;
+  padding: 1rem;
+}
+
+.list-container ul {
+  list-style: none;
+}
+
+@media only screen and (min-width: 1024px) {
+  .list-container ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    gap: 10px;
+  }
+}

@@ -31,7 +31,6 @@ function App() {
     }
 
     if (developer.changedDevList) {
-      console.log("we dispatched data");
       dispatch(sendDeveloperData(developer.developers));
     }
   }, [dispatch, developer]);
