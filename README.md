@@ -4,8 +4,20 @@ git clone https://github.com/stojiljkovicmarko/dev-hiring
 npm install 
 npm start
 
-App made using React.js
+# Application for hiring developers
 
-Application for hiring developers. This app has CRUD functionality, you can browse developers, add, edit and delete their profiles.
+- React.js
+- React Redux
+- React routing
+- CSS3 for styling
+- Responsive design 
+- Firebase backend with database where we persist our data about developers
 
-As backend we used Firebase, which comes with a database, where we stored our information about developers and hired dates.
+Navigate the application:
+
+- Landing page or Welcome page will show up to 8 top developers (criteria not set up)
+- Header has 3 buttons: Home page (landing page), Hire developer (with list of devs to hire), Create new developer
+- Hire developer page has all the devs listed with edit, delete and hire buttons
+- Hire button will show modal with dates when developer is available (for now you can only choose dates that are available and hire developer without any verification nor more data about hiring process...)
+
+
