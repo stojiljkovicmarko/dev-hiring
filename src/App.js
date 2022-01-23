@@ -10,6 +10,7 @@ import EditDeveloper from "./pages/EditDeveloper";
 import Notification from "./ui/Notification";
 
 import { fetchDeveloperData, sendDeveloperData } from "./store/dev-thunk";
+import { fetchHiredData, sendHiredData } from "./store/hired-thunk";
 
 import "./App.css";
 
@@ -17,11 +18,13 @@ let isInit = true;
 
 function App() {
   const developer = useSelector((state) => state.developer);
+  const hired = useSelector((state) => state.hired);
   const notification = useSelector((state) => state.ui.notification);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchDeveloperData());
+    dispatch(fetchHiredData());
   }, [dispatch]);
 
   useEffect(() => {
@@ -33,9 +36,14 @@ function App() {
     if (developer.changedDevList) {
       dispatch(sendDeveloperData(developer.developers));
     }
-  }, [dispatch, developer]);
 
-  console.log("from app", developer.developers);
+    if (hired.changedHired) {
+      dispatch(sendHiredData(hired.hired));
+    }
+  }, [dispatch, developer, hired]);
+
+  console.log(developer);
+  console.log(hired);
 
   return (
     <Fragment>

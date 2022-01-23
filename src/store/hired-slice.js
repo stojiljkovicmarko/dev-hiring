@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { type } from "@testing-library/user-event/dist/type";
 
 const hiredInitialState = {
   hired: [],
@@ -19,9 +18,14 @@ const hiredSlice = createSlice({
           ...state.hired[existingIndex].dates,
           ...action.payload.dates,
         ];
+        state.changedHired = true;
       } else {
         state.hired.push(action.payload);
+        state.changedHired = true;
       }
+    },
+    replaceHiredData(state, action) {
+      state.hired = action.payload;
     },
   },
 });

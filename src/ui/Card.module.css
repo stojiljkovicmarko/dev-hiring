@@ -173,12 +173,8 @@
     width: 70%;
   }
 
-  .dev-info p:nth-child(2n - 1) {
-    font-size: 1rem;
-  }
-
-  .dev-info p:nth-child(2n) {
-    font-size: 1.4rem;
+  .dev-name {
+    font-size: 1.8rem;
   }
 
   .card-actions {
@@ -193,14 +189,6 @@
     width: 70px;
     height: 50px;
     font-size: 1.2rem;
-  }
-
-  .card-more p:nth-child(2n - 1) {
-    font-size: 1rem;
-  }
-
-  .card-more p:nth-child(2n) {
-    font-size: 1.4rem;
   }
 
   .card-actions-buttons {
