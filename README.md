@@ -7,11 +7,10 @@ To set up project:
 # Application for hiring developers
 
 - React.js
-- React Redux
+- React Redux, Redux Thunks
 - React routing
-- CSS3 for styling
-- Responsive design 
-- Firebase backend with database where we persist our data about developers
+- CSS3, Responsive design 
+- Firebase (backend with database)
 
 Navigate the application:
 
