@@ -1,0 +1,20 @@
+// 1. Admin page - add a button that takes you to admin page
+// 1.1 On Admin page - 2 cards: 
+//     1) Create developers; 
+//     2) List of developers with edit/delete button
+
+2. When click on Hire a developer button user can be asked if they want to hire 1 or a team
+If they want to hire one, render a list with a hire button (the rest is single dev hiring logic 3.)
+If they want to hire multiple - we can add hire and add button, so we add them to the list, with the name and dates (dev team hiring logic 4.)
+They can edit that list by deleting or editing dates
+
+3. Single dev hiring logic - ask some data from a person who is Hiring
+3.1 Make a form component that asks user for their data (data validation and confirmation)
+3.1 Hiring database - add a list of people who hired with dates, list with all hiring dates stays the same
+
+4. Dev team hiring logic - we render them all, hire button, but also an add button which will add them to the list,
+when finished 
+
+- Dates we want to delete from hiredList (unhire)
+- We can add some sort of filter by name/tech/yearsOfExp/location
+- Lazy loading pages

@@ -4,6 +4,7 @@
   background-color: white;
   border-radius: 4px;
   box-shadow: 3px 3px 3px rgb(145, 145, 145);
+  overflow: hidden;
 }
 
 .welcome-dev-card img {
@@ -11,6 +12,12 @@
   height: 130px;
   border-radius: 4px 4px 0 0;
   object-fit: cover;
+  cursor: pointer;
+  transition: 0.2s ease-in;
+}
+
+.welcome-dev-card img:hover {
+  transform: scale(1.1);
 }
 
 .welcome-dev-card a {

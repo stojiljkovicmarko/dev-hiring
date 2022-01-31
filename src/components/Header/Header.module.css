@@ -1,21 +1,100 @@
 header {
   width: 100%;
-  min-height: 5rem;
-  padding: 0 10%;
+  min-height: 6rem;
   background-color: #252424;
+  position: sticky;
+  top: 0;
+  z-index: 100;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
 
-header h1 {
-  margin: 1rem 0;
+header .logo {
+  padding-left: 0.5rem;
+  font-size: 2.6em;
+  font-weight: 800;
+  display: inline-block;
+  text-decoration: none;
   color: whitesmoke;
 }
 
+.nav {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 6rem;
+  background-color: #252424;
+  overflow: hidden;
+}
+
+.nav {
+  max-height: 0;
+  transition: max-height 0.5s ease-out;
+}
+
+.hamburger {
+  cursor: pointer;
+  padding: 1.8rem 1.4rem;
+  float: right;
+}
+
+.hamburger-line {
+  background-color: white;
+  display: block;
+  height: 2px;
+  position: relative;
+  width: 24px;
+}
+
+.hamburger-line::before,
+.hamburger-line::after {
+  background-color: white;
+  content: "";
+  display: block;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  transition: all 0.5sec ease-out;
+}
+
+.hamburger-line::before {
+  top: 5px;
+}
+
+.hamburger-line::after {
+  top: -5px;
+}
+
+.side-menu {
+  display: none;
+}
+
+.side-menu:checked ~ .nav {
+  max-height: 100%;
+}
+
+.side-menu:checked ~ .hamburger .hamburger-line {
+  background-color: transparent;
+}
+
+.side-menu:checked ~ .hamburger .hamburger-line::before {
+  transform: rotate(-45deg);
+  top: 0;
+}
+
+.side-menu:checked ~ .hamburger .hamburger-line::after {
+  transform: rotate(45deg);
+  top: 0;
+}
+
 header ul {
+  border-top: 1px solid white;
+  padding-top: 2rem;
   list-style: none;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 10px;
@@ -28,17 +107,54 @@ header ul {
   min-width: 60%;
 }
 
-@media only screen and (max-width: 768px) {
+.hire-btn {
+  background-color: #c93f3f;
+  border-color: #c93f3f;
+}
+
+.hire-btn:hover {
+  background-color: #993131;
+  border-color: #993131;
+}
+
+@media (max-width: 400px) {
   header {
     flex-direction: column;
-    padding-bottom: 1rem;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
   }
 
-  header ul {
-    flex-direction: column;
+  header .logo {
+    font-size: 2rem;
   }
 
-  button {
-    width: 200px;
+  .nav {
+    top: 120px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  header .logo {
+    padding-left: 2rem;
+  }
+  .nav {
+    max-height: none;
+    position: relative;
+    top: 0;
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .nav ul {
+    padding: 1.5rem;
+    flex-direction: row;
+    border-top: none;
+    justify-content: end;
+  }
+
+  .hamburger,
+  .hamburger-line {
+    display: none;
   }
 }

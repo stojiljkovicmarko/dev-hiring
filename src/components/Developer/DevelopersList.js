@@ -18,7 +18,7 @@ const DevelopersList = (props) => {
   const navigate = useNavigate();
 
   const editDevHandler = (id) => {
-    navigate(`/edit-developer/${id}`);
+    navigate(`/admin/edit-developer/${id}`);
   };
 
   const deleteDevHandler = (id) => {

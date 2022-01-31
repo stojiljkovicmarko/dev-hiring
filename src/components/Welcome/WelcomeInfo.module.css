@@ -15,11 +15,17 @@ h2 {
 }
 
 .welcome-info button {
-  background-color: #1a8ed1;
+  background-color: #c93f3f;
+  border-color: #c93f3f;
   color: white;
-  width: 40%;
+  width: 60%;
   font-weight: bold;
   padding: 0.8rem 2.4rem;
+}
+
+.welcome-info button:hover {
+  background-color: #993131;
+  border-color: #993131;
 }
 
 @media only screen and (max-width: 600px) {
