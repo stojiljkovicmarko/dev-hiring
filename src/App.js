@@ -13,11 +13,13 @@ import { fetchDeveloperData, sendDeveloperData } from "./store/dev-thunk";
 import { fetchHiredData, sendHiredData } from "./store/hired-thunk";
 
 import "./App.css";
+import Admin from "./pages/Admin";
+import DevelopersList from "./components/Developer/DevelopersList";
 
 let isInit = true;
 
 function App() {
-  const developer = useSelector((state) => state.developer);
+  const developers = useSelector((state) => state.developer);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const hired = useSelector((state) => state.hired);
@@ -25,12 +27,14 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    setIsLoading(true);
     try {
       dispatch(fetchDeveloperData());
       dispatch(fetchHiredData());
       setIsLoading(false);
     } catch (error) {
       setError({ message: error.message });
+      setIsLoading(false);
     }
   }, [dispatch]);
 
@@ -40,16 +44,18 @@ function App() {
       return;
     }
 
-    if (developer.changedDevList) {
-      dispatch(sendDeveloperData(developer.developers));
+    console.log("test");
+
+    if (developers.changedDevList) {
+      dispatch(sendDeveloperData(developers.developers));
     }
 
     if (hired.changedHired) {
       dispatch(sendHiredData(hired.hired));
     }
-  }, [dispatch, developer, hired]);
+  }, [dispatch, developers, hired]);
 
-  console.log("lsita devs: ",developer);
+  console.log("lsita devs: ", developers);
 
   return (
     <Fragment>
@@ -63,13 +69,15 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/welcome" element={<Welcome />} />
+          <Route path="/admin" element={<Admin />} />
           <Route
             path="/hire-developer"
             element={<HireDeveloper isLoading={isLoading} error={error} />}
           />
-          <Route path="new-developer" element={<CreateDeveloper />} />
-          <Route path="edit-developer/:id" element={<EditDeveloper />} />
-          <Route path="/" element={<Welcome />} />
+          <Route path="/admin/new-developer" element={<CreateDeveloper />} />
+          <Route path="/admin/edit-developer" element={<DevelopersList />} />
+          <Route path="/admin/edit-developer/:id" element={<EditDeveloper />} />
+          <Route path="/*" element={<Welcome />} />
         </Routes>
       </Layout>
     </Fragment>

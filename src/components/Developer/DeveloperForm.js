@@ -12,7 +12,8 @@ const DeveloperForm = (props) => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const id = location.pathname.split("/")[2];
+  const pathList = location.pathname.split("/");
+  const id = pathList[pathList.length - 1];
 
   const {
     value: nameValue,
@@ -87,6 +88,8 @@ const DeveloperForm = (props) => {
     fillForm: fillLanguage,
   } = useInput((value) => value.trim() !== "");
 
+  let imgRegex = new RegExp("(.png|gif|jpe?g|webp|bmp)$");
+
   const {
     value: imgValue,
     hasError: imgInputHasError,
@@ -94,7 +97,7 @@ const DeveloperForm = (props) => {
     valueInputBlurHandler: imgInputBlurHandler,
     reset: resetImg,
     fillForm: fillImg,
-  } = useInput((value) => true);
+  } = useInput((value) => imgRegex.test(value) || value.trim() === "");
 
   const {
     value: descriptionValue,
@@ -114,28 +117,25 @@ const DeveloperForm = (props) => {
     fillForm: fillLinkedin,
   } = useInput((value) => true);
 
-  const fillAllFields = useCallback(
-    (dev) => {
-      fillName(dev.name);
-      fillEmail(dev.email);
-      fillPhone(dev.phone);
-      fillLocation(dev.location);
-      fillImg(dev.img);
-      fillPrice(dev.pricePerHour);
-      fillTechnology(dev.technology);
-      fillDescription(dev.description);
-      fillYearsOfExp(dev.yearsOfExp);
-      fillLanguage(dev.nativeLanguage);
-      fillLinkedin(dev.linkedin);
-    }, []
-  );
+  const fillAllFields = useCallback((dev) => {
+    fillName(dev.name);
+    fillEmail(dev.email);
+    fillPhone(dev.phone);
+    fillLocation(dev.location);
+    fillImg(dev.img);
+    fillPrice(dev.pricePerHour);
+    fillTechnology(dev.technology);
+    fillDescription(dev.description);
+    fillYearsOfExp(dev.yearsOfExp);
+    fillLanguage(dev.nativeLanguage);
+    fillLinkedin(dev.linkedin);
+  }, []);
 
   useEffect(() => {
     if (id) {
       const idExists = devs.find((dev) => {
         return dev.id === id;
       });
-      console.log("devs: ", devs);
       if (idExists) {
         const dev = devs.filter((dev) => dev.id === id)[0];
         fillAllFields(dev);
@@ -161,7 +161,8 @@ const DeveloperForm = (props) => {
     !yearsOfExpInputHasError &&
     yearsOfExpValue &&
     !languageInputHasError &&
-    languageValue
+    languageValue && 
+    !imgInputHasError
   ) {
     formIsValid = true;
   }
@@ -225,7 +226,7 @@ const DeveloperForm = (props) => {
     return !inputFieldHasError ? "" : classes.invalid;
   };
 
-  const isCreatePage = location.pathname === "/new-developer";
+  const isCreatePage = location.pathname.includes("/new-developer");
 
   return (
     <div className={classes["form-container"]}>
@@ -335,7 +336,7 @@ const DeveloperForm = (props) => {
             onChange={imgChangeHandler}
             onBlur={imgInputBlurHandler}
             name="img"
-            placeholder="Avatar url"
+            placeholder="Image url (valid image formats .jpg/.png/.gif...)"
           />
         </div>
         <div className={classes["form-actions"]}>
