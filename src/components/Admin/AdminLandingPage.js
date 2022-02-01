@@ -6,16 +6,19 @@ const AdminLandingPage = (props) => {
   return (
     <div className={classes["admin-container"]}>
       <Link to="/admin/new-developer">
-        {" "}
-        <div className={classes.option}>CREATE</div>{" "}
+        <div className={classes.option}>CREATE</div>
       </Link>
       <Link to="/admin/edit-developer">
-        {" "}
         <div className={classes.option}>
           EDIT /
           <br />
           DELETE
-        </div>{" "}
+        </div>
+      </Link>
+      <Link to="/admin/hired-developers">
+        <div className={classes.option}>
+          HIRED DEVELOPERS
+        </div>
       </Link>
     </div>
   );

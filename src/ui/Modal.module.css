@@ -15,6 +15,7 @@
   border-radius: 25px;
   color: black;
   margin: 0 auto;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;

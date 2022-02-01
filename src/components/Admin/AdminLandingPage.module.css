@@ -11,8 +11,8 @@
   color: black;
   text-align: center;
   width: 50%;
-  max-width: 200px;
-  height: 200px;
+  max-width: 150px;
+  height: 150px;
 }
 
 .admin-container div {
@@ -36,4 +36,14 @@
 .admin-container div:active {
     box-shadow: none;
     transform: translate(3px, 3px);
+}
+
+@media (max-width: 700px) {
+  .admin-container {
+    flex-direction: column;
+  }
+
+  .admin-container a {
+    height: 75px;
+  }
 }

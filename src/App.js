@@ -15,6 +15,7 @@ import { fetchHiredData, sendHiredData } from "./store/hired-thunk";
 import "./App.css";
 import Admin from "./pages/Admin";
 import DevelopersList from "./components/Developer/DevelopersList";
+import HiredDevelopers from "./pages/HiredDevelopers";
 
 let isInit = true;
 
@@ -44,8 +45,6 @@ function App() {
       return;
     }
 
-    console.log("test");
-
     if (developers.changedDevList) {
       dispatch(sendDeveloperData(developers.developers));
     }
@@ -54,8 +53,6 @@ function App() {
       dispatch(sendHiredData(hired.hired));
     }
   }, [dispatch, developers, hired]);
-
-  console.log("lsita devs: ", developers);
 
   return (
     <Fragment>
@@ -77,6 +74,7 @@ function App() {
           <Route path="/admin/new-developer" element={<CreateDeveloper />} />
           <Route path="/admin/edit-developer" element={<DevelopersList />} />
           <Route path="/admin/edit-developer/:id" element={<EditDeveloper />} />
+          <Route path="/admin/hired-developers" element={<HiredDevelopers />} />
           <Route path="/*" element={<Welcome />} />
         </Routes>
       </Layout>

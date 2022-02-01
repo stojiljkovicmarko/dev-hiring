@@ -175,6 +175,8 @@
 
   .dev-name {
     font-size: 1.8rem;
+    
+    text-overflow: clip;
   }
 
   .card-actions {

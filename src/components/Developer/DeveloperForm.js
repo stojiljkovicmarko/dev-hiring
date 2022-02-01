@@ -13,7 +13,11 @@ const DeveloperForm = (props) => {
   const location = useLocation();
 
   const pathList = location.pathname.split("/");
-  const id = pathList[pathList.length - 1];
+  let id = null;
+  console.log(pathList);
+  if (pathList[2] === "edit-developer") {
+    id = pathList[pathList.length - 1];
+  }
 
   const {
     value: nameValue,
@@ -161,7 +165,7 @@ const DeveloperForm = (props) => {
     !yearsOfExpInputHasError &&
     yearsOfExpValue &&
     !languageInputHasError &&
-    languageValue && 
+    languageValue &&
     !imgInputHasError
   ) {
     formIsValid = true;

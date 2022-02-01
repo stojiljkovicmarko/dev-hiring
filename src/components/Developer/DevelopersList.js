@@ -1,7 +1,8 @@
 import { Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { developerActions } from "../../store/dev-slice";
+import AdminCard from "../../ui/AdminCard";
 import Card from "../../ui/Card";
 import DateModal from "../DatePickerModal/DateModal";
 import Error from "../Error/Error";
@@ -15,6 +16,12 @@ const DevelopersList = (props) => {
   const developers = useSelector((state) => state.developer.developers);
   const dispatch = useDispatch();
 
+  let isAdmin = false;
+  const location = useLocation();
+  const path = location.pathname.split("/");
+  if (path[1] === "admin") {
+    isAdmin = true;
+  }
   const navigate = useNavigate();
 
   const editDevHandler = (id) => {
@@ -42,25 +49,41 @@ const DevelopersList = (props) => {
     );
   }
 
+  let listToRender;
+
+  if (isAdmin) {
+    listToRender = developers.map((dev) => {
+      return (
+        <AdminCard
+          key={dev.id}
+          editDeveloper={editDevHandler}
+          deleteDeveloper={deleteDevHandler}
+          showDatePicker={onShowDatePicker}
+          dev={dev}
+        />
+      );
+    });
+  } else {
+    listToRender = developers.map((dev) => {
+      return (
+        <Card
+          key={dev.id}
+          editDeveloper={editDevHandler}
+          deleteDeveloper={deleteDevHandler}
+          showDatePicker={onShowDatePicker}
+          dev={dev}
+        />
+      );
+    });
+  }
+
   return (
     <Fragment>
       {isModalVisible && (
         <DateModal id={devId} showDatePicker={onShowDatePicker} />
       )}
       <div className={classes["list-container"]}>
-        <ul>
-          {developers.map((dev) => {
-            return (
-              <Card
-                key={dev.id}
-                editDeveloper={editDevHandler}
-                deleteDeveloper={deleteDevHandler}
-                showDatePicker={onShowDatePicker}
-                dev={dev}
-              />
-            );
-          })}
-        </ul>
+        <ul>{listToRender}</ul>
       </div>
     </Fragment>
   );

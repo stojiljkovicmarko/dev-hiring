@@ -76,10 +76,10 @@ const DateModal = (props) => {
       />
       <div className={classes["modal-actions"]}>
         <button className={classes["modal-hire"]} onClick={onHireHandler}>
-          HIRE
+          ADD TO HIRE LIST
         </button>
         <button className={classes["modal-close"]} onClick={onCloseHandler}>
-          CLOSE
+          close
         </button>
       </div>
     </Modal>

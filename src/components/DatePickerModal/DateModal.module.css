@@ -1,18 +1,28 @@
 .modal-actions {
-  width: 80%;
+  width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 10px;
   padding: 1rem;
 }
 
+.modal-actions button:first-child {
+  width: 100%;
+}
+
 .modal-close {
-  background-color: rgb(194, 17, 17);
+  background-color: transparent;
+  color: tomato;
   border: none;
+  border-bottom: 2px solid tomato;
+  border-radius: 0;
+  padding: 0.1rem;
 }
 
 .modal-close:hover {
-  background-color: rgb(155, 13, 13);
+  color: rgb(129, 51, 37);
+  background-color: transparent;
+  border-color: rgb(129, 51, 37);
 }

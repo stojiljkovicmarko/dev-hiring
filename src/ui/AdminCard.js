@@ -1,27 +1,11 @@
-import { useState } from "react";
-
 import classes from "./Card.module.css";
 import avatar from "../assets/avatar.png";
-import { useLocation } from "react-router-dom";
 
-const Card = (props) => {
-  const [isMoreDataVisible, setIsMoreDataVisible] = useState(false);
+const AdminCard = (props) => {
   const dev = props.dev;
-
-  let isAdminLogged = false;
-
-  const location = useLocation();
-  const pathName = location.pathname.split("/");
-  if (pathName[1] === "admin") {
-    isAdminLogged = true;
-  }
 
   const onImgErrorHandler = (event) => {
     event.target.src = avatar;
-  };
-
-  const showMoreDataHandler = () => {
-    setIsMoreDataVisible(!isMoreDataVisible);
   };
 
   return (
@@ -56,20 +40,7 @@ const Card = (props) => {
           </div>
         </div>
       </div>
-      <div
-        className={`${classes["card-actions"]} ${
-          isMoreDataVisible ? "less" : "more"
-        }`}
-      >
-        <button onClick={showMoreDataHandler}>
-          {isMoreDataVisible ? "less" : "more"}
-        </button>
-      </div>
-      <div
-        className={`${classes["card-more"]} ${
-          classes[isMoreDataVisible ? "visible" : "hidden"]
-        }`}
-      >
+      <div className={classes["card-more"]}>
         <div>
           <p>Email</p>
           <p>{dev.email}</p>
@@ -85,6 +56,22 @@ const Card = (props) => {
         <div className={classes["card-actions-buttons"]}>
           <button
             onClick={() => {
+              props.editDeveloper(dev.id);
+            }}
+            className={classes["edit-btn"]}
+          >
+            EDIT
+          </button>
+          <button
+            onClick={() => {
+              props.deleteDeveloper(dev.id);
+            }}
+            className={classes["delete-btn"]}
+          >
+            DELETE
+          </button>
+          <button
+            onClick={() => {
               props.showDatePicker(dev.id);
             }}
             className={classes["hire-btn"]}
@@ -97,4 +84,4 @@ const Card = (props) => {
   );
 };
 
-export default Card;
+export default AdminCard;
